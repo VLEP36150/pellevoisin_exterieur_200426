@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visite Virtuelle</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <style>
+        body { margin: 0; padding: 0; font-family: sans-serif; }
+        #panorama { width: 100%; height: 100vh; }
+        
+        /* Barre de navigation en bas */
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            z-index: 1000;
+        }
+
+        .thumb {
+            text-align: center;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.2s;
+        }
+
+        .thumb:hover { transform: scale(1.1); }
+
+        .thumb img {
+            width: 80px;
+            height: 50px;
+            object-fit: cover;
+            border: 2px solid white;
+            border-radius: 4px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .thumb span { font-size: 12px; }
+    </style>
+</head>
+<body>
+
+<div id="panorama"></div>
+
+<div id="controls">
+    <div class="thumb" onclick="loadScene('rue')">
+        <img src="cour_avant.JPG"><span>Côté Rue</span>
+    </div>
+    <div class="thumb" onclick="loadScene('cour')">
+        <img src="jardin_arriere_202426.JPG"><span>Cour Arrière</span>
+    </div>
+    <div class="thumb" onclick="loadScene('droit')">
+        <img src="cote_maison_haie.JPG"><span>Côté Droit</span>
+    </div>
+    <div class="thumb" onclick="loadScene('veranda')">
+        <img src="cote_veranda_ext_200426.JPG"><span>Côté Véranda</span>
+    </div>
+</div>
+
+<script>
+    // Configuration de la visite
+    var viewer = pannellum.viewer('panorama', {
+        "default": {
+            "firstScene": "rue",
+            "autoLoad": true
+        },
+        "scenes": {
+            "rue": {
+                "title": "Côté Rue",
+                "type": "equirectangular",
+                "panorama": "cour_avant.JPG"
+            },
+            "cour": {
+                "title": "Cour Arrière",
+                "type": "equirectangular",
+                "panorama": "jardin_arriere_200426.JPG"
+            },
+            "droit": {
+                "title": "Côté Droit",
+                "type": "equirectangular",
+                "panorama": "cote_maison_haie.JPG"
+            },
+            "veranda": {
+                "title": "Côté Véranda",
+                "type": "equirectangular",
+                "panorama": "cote_verada_ext_200426.jpg"
+            }
+        }
+    });
+
+    // Fonction pour changer de scène au clic sur les miniatures
+    function loadScene(id) {
+        viewer.loadScene(id);
+    }
+</script>
+
+</body>
+</html>
